@@ -8,6 +8,9 @@ type MainController struct {
 	beego.Controller
 }
 
+/*
+ 显示默认的首页
+*/
 func (c *MainController) Get() {
 	c.Data["Website"] = "beego.me"
 	c.Data["Email"] = "astaxie@gmail.com"

@@ -81,7 +81,7 @@
                                             class="to-sign-in">直接登录</span></a></p></div>
                     </div>
                 </header>
-                <form class="registry-form"><h1>欢迎数据认证平台</h1>
+                <form class="registry-form" action="home.go" method="POST"><h1>欢迎数据认证平台</h1>
                     <section>
                         <div class="row-input input-component" style="position: relative;"><input type="text"
                                                                                                   name="phoneNumber"
@@ -93,10 +93,10 @@
                                         class="iconfont font-error" style="line-height: 44px;"></i><label
                                         class="error-text" style="line-height: 44px;"></label></p></div>
                         <span class="name">手机号码</span></section>
-                    <section>
-                        <div class="verify"><span class="name">图形验证码</span><img
+                 {{/*   <section>
+                        */}}{{/*<div class="verify"><span class="name">图形验证码</span><img
                                     src="data:image/png;base64,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"
-                                    style="width: 88px; height: 30px; margin-left: 136px;"></div>
+                                    style="width: 88px; height: 30px; margin-left: 136px;"></div>*/}}{{/*
                         <div class="row-input input-component" style="position: relative;"><input type="text"
                                                                                                   name="checkCode"
                                                                                                   placeholder="请输入图形验证码"
@@ -121,7 +121,7 @@
                             <!-- react-text: 239 --><!-- /react-text --><p class="error-content"><i
                                         class="iconfont font-error" style="line-height: 44px;"></i><label
                                         class="error-text" style="line-height: 44px;"></label></p></div>
-                    </section>
+                    </section>*/}}
                     <section>
                         <div class="verify"><span class="name">设置密码</span>
                             <div class="code"

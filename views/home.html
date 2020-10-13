@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>发布评论</title>
+    <script type="text/javascript" src="js/jquery-3.1.1.js" ></script>
+    <style type="text/css">
+        *{
+            margin: 0;padding: 0;
+            list-style: none;
+        }
+        fieldset{
+            width: 80%;
+            border: 1px solid gray;
+            border-radius: 10px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        #username{
+            width: 80%;
+            height: 25px;
+            border: 1px solid gray;
+            border-radius: 10px;
+            padding: 0px 10px;
+        }
+        #content{
+            width: 80%;
+            height: 80px;
+            border: 1px solid gray;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 20px auto;
+        }
+        #myform input[type='submit']{
+            width: 80px;
+            height: 30px;
+            border-radius: 15px;
+            border: none;
+            background-color: #555555;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        #div1{
+            width: 80%;
+            height: 50px;
+            background-color: #808080;
+            margin: 0 auto;
+            padding:0px 20px;
+            line-height: 50px;
+        }
+        #div1 span{
+            float: left;
+        }
+        #div1 button{
+            float: right;
+            width: 80px;
+            height: 30px;
+            border-radius: 15px;
+            border: none;
+            background-color: #555555;
+            color: #ffffff;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        #div2{
+            width: 80%;
+            padding: 20px;
+            border: 1px solid gray;
+            margin: 20px auto;
+        }
+        /*给动态创建来的div，添加样式*/
+        #div2 .list{
+            border-bottom: 1px dotted gray;
+            padding: 5px;
+            overflow: hidden;
+        }
+        #div2 li:hover{
+            background-color: gainsboro;
+        }
+
+        #div2 .list button{
+            float: right;
+            border-radius: 5px;
+            padding: 2px 5px;
+        }
+        #id1{
+            border-bottom: 1px dotted gray;
+            padding: 5px;
+            margin-left:95% ;
+            margin-bottom:5px ;
+
+        }
+
+    </style>
+    <script>
+        $(document).ready(function(){
+            $("#myform").submit(function(evt){
+                var e = evt || window.event;
+                e.preventDefault();
+                addCommont();})
+            $("#clearBtn").click(function(){
+                localStorage.clear();
+                window.location.reload();
+            })
+            var arrObj = [];
+
+
+
+            var now = new Date();
+            var time = now.getMonth()+1+"月"+now.getDate()
+                +"日 "+now.getHours()+":"+now.getMinutes()+":"
+                +now.getSeconds();
+
+
+
+            /* $("input:eq(1)").click(function(){
+                   var jsonStr = localStorage.getItem('data2');
+                if(jsonStr == null){
+                console.log('localStorage中没有数据。。')
+                }else{
+                 if($("input:first").val().length<5||$("#content").val().length<5){
+                     alert("请输入至少5个字符")
+                 }else{
+                     arrObj = JSON.parse(jsonStr);
+                     for(var i=0;i<arrObj.length;i++){
+                         var objDiv = document.createElement('div');
+                         objDiv.setAttribute('class','list');
+                         objDiv.innerHTML=
+                     "<h3>"+ arrObj[i].$("#username").val()+"</h3>"
+                     +"<p>"+arrObj[i].$("#content").val()+"</p>"
+                     +"<p>"+arrObj[i].time+"</p>"
+                     +"<button id='id1'>删除</button>"
+                     div2.appendChild(objDiv);
+                }
+             }*/
+            $("input:eq(1)").click(function(){
+                if($("input:first").val().length<5||$("#content").val().length<5){
+                    alert("请输入至少5个字符")
+                }else{
+                    $("#div2").append("<li>"
+                        +"<h3>"+ $("#username").val()+"</h3>"
+                        +"<p>"+$("#content").val()+"</p>"
+                        +"<p>"+time+"</p>"
+                        +"<button  id='id1'>删除</button>"
+                        +"<hr  style='border: 1px dotted black;'/>"
+                        +"</li>")
+                    localStorage.key($("#div2"))
+                    var jsonStr =  $("#div2")
+                    var jsonStr = localStorage.getItem('data2');
+                    localStorage.setItem('data2',jsonStr);
+
+                    $("#username").val("");
+                    $("#content").val("");
+
+                    $("#id1").click(function(){
+                        $("#div2").children().remove() ;
+                    })
+                }
+            });
+        });
+
+        /* 	var obj=new Object
+             obj.username=$("input:first").val()
+             obj.commont=$("#content").val()
+
+             objDiv.innerHTML=("<h3>"+ $("#username").val()+"</h3>"
+             +"<p>"+$("#content").val()+"</p>"
+             +"<p>"+time+"</p>"
+             +"<button  id='id1'>删除</button>"
+             +"<hr  style='border: 1px dotted black;'/>")
+             div2.appendChild(objDiv);
+
+             arrObj.unshift(obj);//obj3 obj2 obj1
+           var jsonStr = JSON.stringify(arrObj);
+            localStorage.setItem('data2', jsonStr);
+
+            function deleteItem(obj) {
+                    console.log(obj);
+                var time_Item = obj.previousSibling.innerText;
+                        console.log(time_Item);
+                for (var i = 0; i < arrObj.length; i++) {
+                        console.log(arrObj[i].time);
+                if (arrObj[i].time == time_Item) {
+                        console.log(+arrObj[i].time);
+                        arrObj.splice(i, 1);
+                            }
+                                }
+                                console.log(arrObj.length);
+                        var jsonStr = JSON.stringify(arrObj);
+                            localStorage.setItem('data2', jsonStr);
+                            window.location.reload();
+                }
+            })*/
+        /* $("input:first").focus(function(){
+               $(this).val("请输入至少4个字符")
+               .blur(function(){
+                   $(this).val("")
+               })
+
+               .keydown(function(){
+                   $(this).val("")
+               })
+               })
+
+           $("#content").focus(function(){
+               $(this).val("请输入至少4个字符")
+               .blur(function(){
+                   $(this).val("")
+               })
+
+               .keydown(function(){
+                   $(this).val("")
+               })
+           }) */
+        /*	function deleteItem(obj){//obj = this	button
+            console.log(obj);
+            var time_Item = obj.previousSibling.innerText;
+            console.log(time_Item);
+            for(var i=0;i<arrObj.length;i++){
+                console.log(arrObj[i].time);
+                if(arrObj[i].time == time_Item){
+                    console.log("找到了。。。"+arrObj[i].time);
+                    arrObj.splice(i,1);//删除下标为i的obj
+                }
+            }
+            console.log(arrObj.length);
+            //将数组重新生成json字符串，存入本地localStorage
+            var jsonStr = JSON.stringify(arrObj);
+            localStorage.setItem('data2',jsonStr);
+            //重新加载页面，重新加载当前文档
+            window.location.reload();
+        }*/
+
+    </script>
+</head>
+<body>
+<fieldset>
+    <legend>发表评论</legend>
+    <form action="#" method="post" id="myform">
+        <input id="username" type="text" required  placeholder="请输入账号"/>
+        <br />
+        <textarea id="content" required placeholder="请输入评论内容"></textarea>
+        <br />
+        <input type="submit" value="提交" />
+    </form>
+</fieldset>
+
+<div id="div1">
+    <span>评论</span>
+    <button id="clearBtn">清空信息</button>
+</div>
+
+<div id="div2">
+    <ul></ul>
+</div>
+
+
+</body>
+</html>
